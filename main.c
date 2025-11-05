@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+char **map;
+int lines;
+int columns;
+
 int main()
 {
-	// Matrix of 5x10
-	// 10+1 because every string ends with /0
-	char map[5][10 + 1];
-
 	FILE *f;
 	f = fopen("map.txt", "r");
 	if (f == 0)
@@ -15,26 +15,32 @@ int main()
 		exit(1);
 	}
 
+	fscanf(f, "%d %d", &lines, &columns);
+	printf("Lines: %d Columns: %d\n", lines, columns);
+
+	map = malloc(sizeof(char *) * lines);
+	for (int i = 0; i < lines; i++)
+	{
+		map[i] = malloc(sizeof(char) * (columns + 1));
+	}
+
 	for (int i = 0; i < 5; i++)
 	{
 		fscanf(f, "%s", map[i]);
 	}
 
-	printf("Printing by string:\n");
 	for (int i = 0; i < 5; i++)
 	{
 		printf("%s\n", map[i]);
 	}
 
-	printf("Printing by char:\n");
-	for (int i = 0; i < 5; i++)
+	fclose(f);
+
+	for (int i = 0; i < lines; i++)
 	{
-		for (int j = 0; j < 10; j++)
-		{
-			printf("%c", map[i][j]);
-		}
-		printf("\n");
+		free(map[i]);
 	}
+	free(map);
 
 	return 0;
 }
