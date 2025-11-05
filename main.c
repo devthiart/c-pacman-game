@@ -2,8 +2,12 @@
 
 int main()
 {
-	printf("Hello World!\n");
-	printf("Nice to see you again C!\n");
+	char map[5][10];
+
+	map[0][0] = '|';
+	map[4][9] = '@';
+
+	printf("%c %c", map[0][0], map[4][9]);
 
 	return 0;
 }
