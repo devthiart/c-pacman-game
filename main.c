@@ -1,57 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
+#include "map.h"
 
 MAP m;
-
-void freemap()
-{
-	for (int i = 0; i < m.lines; i++)
-	{
-		free(m.matrix[i]);
-	}
-	free(m.matrix);
-}
-
-void allocmap()
-{
-	m.matrix = malloc(sizeof(char *) * m.lines);
-	for (int i = 0; i < m.lines; i++)
-	{
-		m.matrix[i] = malloc(sizeof(char) * (m.columns + 1));
-	}
-}
-
-void readmap()
-{
-	FILE *f;
-	f = fopen("map.txt", "r");
-	if (f == 0)
-	{
-		printf("Error reading file");
-		exit(1);
-	}
-
-	fscanf(f, "%d %d", &m.lines, &m.columns);
-	printf("Lines: %d Columns: %d\n", m.lines, m.columns);
-
-	allocmap();
-
-	for (int i = 0; i < 5; i++)
-	{
-		fscanf(f, "%s", m.matrix[i]);
-	}
-
-	fclose(f);
-}
-
-void printmap()
-{
-	for (int i = 0; i < 5; i++)
-	{
-		printf("%s\n", m.matrix[i]);
-	}
-}
 
 int endgame()
 {
@@ -99,18 +51,18 @@ void move(char direction)
 int main()
 {
 
-	readmap();
+	readmap(&m);
 
 	do
 	{
-		printmap();
+		printmap(&m);
 
 		char userinput;
 		scanf(" %c", &userinput);
 		move(userinput);
 	} while (!endgame());
 
-	freemap();
+	freemap(&m);
 
 	return 0;
 }
