@@ -13,6 +13,15 @@ int endgame()
 
 void move(char direction)
 {
+	// Validating user input
+	if (direction != 'w' &&
+		direction != 'a' &&
+		direction != 's' &&
+		direction != 'd')
+	{
+		return;
+	}
+
 	m.matrix[hero.x][hero.y] = '.';
 
 	// move player on map
