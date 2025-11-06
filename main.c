@@ -4,6 +4,7 @@
 #include "map.h"
 
 MAP m;
+POSITION hero;
 
 int endgame()
 {
@@ -12,46 +13,35 @@ int endgame()
 
 void move(char direction)
 {
-	int x;
-	int y;
-
-	// Find player position
-	for (int i = 0; i < m.lines; i++)
-	{
-		for (int j = 0; j < m.columns; j++)
-		{
-			if (m.matrix[i][j] == '@')
-			{
-				x = i;
-				y = j;
-				break;
-			}
-		}
-	}
+	m.matrix[hero.x][hero.y] = '.';
 
 	// move player on map
 	switch (direction)
 	{
 	case 'a':
-		m.matrix[x][y - 1] = '@';
+		m.matrix[hero.x][hero.y - 1] = '@';
+		hero.y--;
 		break;
 	case 'w':
-		m.matrix[x - 1][y] = '@';
+		m.matrix[hero.x - 1][hero.y] = '@';
+		hero.x--;
 		break;
 	case 's':
-		m.matrix[x + 1][y] = '@';
+		m.matrix[hero.x + 1][hero.y] = '@';
+		hero.x++;
 		break;
 	case 'd':
-		m.matrix[x][y + 1] = '@';
+		m.matrix[hero.x][hero.y + 1] = '@';
+		hero.y++;
 		break;
 	}
-	m.matrix[x][y] = '.';
 }
 
 int main()
 {
 
 	readmap(&m);
+	findinmap(&m, &hero, '@');
 
 	do
 	{

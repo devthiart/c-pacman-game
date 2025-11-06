@@ -2,6 +2,23 @@
 #include <stdlib.h>
 #include "map.h"
 
+void findinmap(MAP *m, POSITION *p, char c)
+{
+	// Find player position
+	for (int i = 0; i < m->lines; i++)
+	{
+		for (int j = 0; j < m->columns; j++)
+		{
+			if (m->matrix[i][j] == c)
+			{
+				p->x = i;
+				p->y = j;
+				break;
+			}
+		}
+	}
+}
+
 void freemap(MAP *m)
 {
 	for (int i = 0; i < m->lines; i++)
