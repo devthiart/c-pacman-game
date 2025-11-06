@@ -22,28 +22,37 @@ void move(char direction)
 		return;
 	}
 
-	m.matrix[hero.x][hero.y] = '.';
+	int nextx = hero.x;
+	int nexty = hero.y;
 
-	// move player on map
 	switch (direction)
 	{
 	case 'a':
-		m.matrix[hero.x][hero.y - 1] = '@';
-		hero.y--;
+		nexty--;
 		break;
 	case 'w':
-		m.matrix[hero.x - 1][hero.y] = '@';
-		hero.x--;
+		nextx--;
 		break;
 	case 's':
-		m.matrix[hero.x + 1][hero.y] = '@';
-		hero.x++;
+		nextx++;
 		break;
 	case 'd':
-		m.matrix[hero.x][hero.y + 1] = '@';
-		hero.y++;
+		nexty++;
 		break;
 	}
+
+	// Check if the hero can move to the desired position
+	if (nextx >= m.lines)
+		return;
+	if (nexty >= m.columns)
+		return;
+	if (m.matrix[nextx][nexty] != '.')
+		return;
+
+	m.matrix[nextx][nexty] = '@';
+	m.matrix[hero.x][hero.y] = '.';
+	hero.x = nextx;
+	hero.y = nexty;
 }
 
 int main()
