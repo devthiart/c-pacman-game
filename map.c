@@ -6,7 +6,7 @@ int moveonmap(MAP *m, int xorigin, int yorigin, int xdestiny, int ydestiny)
 {
 	char character = m->matrix[xorigin][yorigin];
 	m->matrix[xdestiny][ydestiny] = character;
-	m->matrix[xorigin][yorigin] = '.';
+	m->matrix[xorigin][yorigin] = EMPTY;
 }
 
 int isvalid(MAP *m, int x, int y)
@@ -21,7 +21,7 @@ int isvalid(MAP *m, int x, int y)
 
 int isempty(MAP *m, int x, int y)
 {
-	return m->matrix[x][y] == '.';
+	return m->matrix[x][y] == EMPTY;
 }
 
 void findinmap(MAP *m, POSITION *p, char c)
@@ -70,7 +70,6 @@ void readmap(MAP *m)
 	}
 
 	fscanf(f, "%d %d", &m->lines, &m->columns);
-	printf("Lines: %d Columns: %d\n", m->lines, m->columns);
 
 	allocmap(m);
 

@@ -1,3 +1,8 @@
+#define HERO '@'
+#define EMPTY '.'
+#define WALL_VERTICAL '|'
+#define WALL_HORIZONTAL '-'
+
 struct map
 {
   char **matrix;

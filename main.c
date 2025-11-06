@@ -13,10 +13,10 @@ int endgame()
 
 int validinput(char userinput)
 {
-	return userinput == 'w' ||
-		   userinput == 'a' ||
-		   userinput == 's' ||
-		   userinput == 'd';
+	return userinput == UP ||
+		   userinput == LEFT ||
+		   userinput == DOWN ||
+		   userinput == RIGHT;
 }
 
 void move(char direction)
@@ -30,16 +30,16 @@ void move(char direction)
 
 	switch (direction)
 	{
-	case 'a':
+	case LEFT:
 		nexty--;
 		break;
-	case 'w':
+	case UP:
 		nextx--;
 		break;
-	case 's':
+	case DOWN:
 		nextx++;
 		break;
-	case 'd':
+	case RIGHT:
 		nexty++;
 		break;
 	}
@@ -59,7 +59,7 @@ int main()
 {
 
 	readmap(&m);
-	findinmap(&m, &hero, '@');
+	findinmap(&m, &hero, HERO);
 
 	do
 	{
