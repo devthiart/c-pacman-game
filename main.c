@@ -2,25 +2,23 @@
 #include <stdlib.h>
 #include "main.h"
 
-char **map;
-int lines;
-int columns;
+struct map m;
 
 void freemap()
 {
-	for (int i = 0; i < lines; i++)
+	for (int i = 0; i < m.lines; i++)
 	{
-		free(map[i]);
+		free(m.matrix[i]);
 	}
-	free(map);
+	free(m.matrix);
 }
 
 void allocmap()
 {
-	map = malloc(sizeof(char *) * lines);
-	for (int i = 0; i < lines; i++)
+	m.matrix = malloc(sizeof(char *) * m.lines);
+	for (int i = 0; i < m.lines; i++)
 	{
-		map[i] = malloc(sizeof(char) * (columns + 1));
+		m.matrix[i] = malloc(sizeof(char) * (m.columns + 1));
 	}
 }
 
@@ -34,14 +32,14 @@ void readmap()
 		exit(1);
 	}
 
-	fscanf(f, "%d %d", &lines, &columns);
-	printf("Lines: %d Columns: %d\n", lines, columns);
+	fscanf(f, "%d %d", &m.lines, &m.columns);
+	printf("Lines: %d Columns: %d\n", m.lines, m.columns);
 
 	allocmap();
 
 	for (int i = 0; i < 5; i++)
 	{
-		fscanf(f, "%s", map[i]);
+		fscanf(f, "%s", m.matrix[i]);
 	}
 
 	fclose(f);
@@ -51,7 +49,7 @@ void printmap()
 {
 	for (int i = 0; i < 5; i++)
 	{
-		printf("%s\n", map[i]);
+		printf("%s\n", m.matrix[i]);
 	}
 }
 
@@ -66,11 +64,11 @@ void move(char direction)
 	int y;
 
 	// Find player position
-	for (int i = 0; i < lines; i++)
+	for (int i = 0; i < m.lines; i++)
 	{
-		for (int j = 0; j < columns; j++)
+		for (int j = 0; j < m.columns; j++)
 		{
-			if (map[i][j] == '@')
+			if (m.matrix[i][j] == '@')
 			{
 				x = i;
 				y = j;
@@ -83,19 +81,19 @@ void move(char direction)
 	switch (direction)
 	{
 	case 'a':
-		map[x][y - 1] = '@';
+		m.matrix[x][y - 1] = '@';
 		break;
 	case 'w':
-		map[x - 1][y] = '@';
+		m.matrix[x - 1][y] = '@';
 		break;
 	case 's':
-		map[x + 1][y] = '@';
+		m.matrix[x + 1][y] = '@';
 		break;
 	case 'd':
-		map[x][y + 1] = '@';
+		m.matrix[x][y + 1] = '@';
 		break;
 	}
-	map[x][y] = '.';
+	m.matrix[x][y] = '.';
 }
 
 int main()
