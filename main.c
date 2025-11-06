@@ -47,15 +47,70 @@ void readmap()
 	fclose(f);
 }
 
+void printmap()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		printf("%s\n", map[i]);
+	}
+}
+
+int endgame()
+{
+	return 0;
+}
+
+void move(char direction)
+{
+	int x;
+	int y;
+
+	// Find player position
+	for (int i = 0; i < lines; i++)
+	{
+		for (int j = 0; j < columns; j++)
+		{
+			if (map[i][j] == '@')
+			{
+				x = i;
+				y = j;
+				break;
+			}
+		}
+	}
+
+	// move player on map
+	switch (direction)
+	{
+	case 'a':
+		map[x][y - 1] = '@';
+		break;
+	case 'w':
+		map[x - 1][y] = '@';
+		break;
+	case 's':
+		map[x + 1][y] = '@';
+		break;
+	case 'd':
+		map[x][y + 1] = '@';
+		break;
+	}
+	map[x][y] = '.';
+}
+
 int main()
 {
 
 	readmap();
 
-	for (int i = 0; i < 5; i++)
+	do
 	{
-		printf("%s\n", map[i]);
-	}
+		printmap();
+
+		char userinput;
+		scanf(" %c", &userinput);
+		move(userinput);
+	} while (!endgame());
 
 	freemap();
 
