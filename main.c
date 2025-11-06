@@ -1,11 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "main.h"
 
 char **map;
 int lines;
 int columns;
 
-int main()
+void freemap()
+{
+	for (int i = 0; i < lines; i++)
+	{
+		free(map[i]);
+	}
+	free(map);
+}
+
+void allocmap()
+{
+	map = malloc(sizeof(char *) * lines);
+	for (int i = 0; i < lines; i++)
+	{
+		map[i] = malloc(sizeof(char) * (columns + 1));
+	}
+}
+
+void readmap()
 {
 	FILE *f;
 	f = fopen("map.txt", "r");
@@ -18,29 +37,27 @@ int main()
 	fscanf(f, "%d %d", &lines, &columns);
 	printf("Lines: %d Columns: %d\n", lines, columns);
 
-	map = malloc(sizeof(char *) * lines);
-	for (int i = 0; i < lines; i++)
-	{
-		map[i] = malloc(sizeof(char) * (columns + 1));
-	}
+	allocmap();
 
 	for (int i = 0; i < 5; i++)
 	{
 		fscanf(f, "%s", map[i]);
 	}
 
+	fclose(f);
+}
+
+int main()
+{
+
+	readmap();
+
 	for (int i = 0; i < 5; i++)
 	{
 		printf("%s\n", map[i]);
 	}
 
-	fclose(f);
-
-	for (int i = 0; i < lines; i++)
-	{
-		free(map[i]);
-	}
-	free(map);
+	freemap();
 
 	return 0;
 }
