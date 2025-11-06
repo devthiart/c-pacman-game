@@ -11,16 +11,19 @@ int endgame()
 	return 0;
 }
 
+int validinput(char userinput)
+{
+	return userinput == 'w' ||
+		   userinput == 'a' ||
+		   userinput == 's' ||
+		   userinput == 'd';
+}
+
 void move(char direction)
 {
 	// Validating user input
-	if (direction != 'w' &&
-		direction != 'a' &&
-		direction != 's' &&
-		direction != 'd')
-	{
+	if (!validinput(direction))
 		return;
-	}
 
 	int nextx = hero.x;
 	int nexty = hero.y;
@@ -42,15 +45,12 @@ void move(char direction)
 	}
 
 	// Check if the hero can move to the desired position
-	if (nextx >= m.lines)
+	if (!isvalid(&m, nextx, nexty))
 		return;
-	if (nexty >= m.columns)
-		return;
-	if (m.matrix[nextx][nexty] != '.')
+	if (!isempty(&m, nextx, nexty))
 		return;
 
-	m.matrix[nextx][nexty] = '@';
-	m.matrix[hero.x][hero.y] = '.';
+	moveonmap(&m, hero.x, hero.y, nextx, nexty);
 	hero.x = nextx;
 	hero.y = nexty;
 }

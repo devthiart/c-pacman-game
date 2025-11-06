@@ -2,6 +2,28 @@
 #include <stdlib.h>
 #include "map.h"
 
+int moveonmap(MAP *m, int xorigin, int yorigin, int xdestiny, int ydestiny)
+{
+	char character = m->matrix[xorigin][yorigin];
+	m->matrix[xdestiny][ydestiny] = character;
+	m->matrix[xorigin][yorigin] = '.';
+}
+
+int isvalid(MAP *m, int x, int y)
+{
+	if (x >= m->lines)
+		return 0;
+	if (y >= m->columns)
+		return 0;
+
+	return 1;
+}
+
+int isempty(MAP *m, int x, int y)
+{
+	return m->matrix[x][y] == '.';
+}
+
 void findinmap(MAP *m, POSITION *p, char c)
 {
 	// Find player position
