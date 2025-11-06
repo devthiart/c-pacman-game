@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "main.h"
 
-struct map m;
+MAP m;
 
 void freemap()
 {
