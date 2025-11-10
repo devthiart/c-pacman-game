@@ -37,7 +37,7 @@ int isempty(MAP *m, int x, int y)
 	return m->matrix[x][y] == EMPTY;
 }
 
-void findinmap(MAP *m, POSITION *p, char c)
+int findonmap(MAP *m, POSITION *p, char c)
 {
 	// Find player position
 	for (int i = 0; i < m->lines; i++)
@@ -48,10 +48,16 @@ void findinmap(MAP *m, POSITION *p, char c)
 			{
 				p->x = i;
 				p->y = j;
-				break;
+				return 1;
 			}
 		}
 	}
+	return 0;
+}
+
+int canmove(MAP *m, int x, int y)
+{
+	return isvalid(m, x, y) && isempty(m, x, y);
 }
 
 void freemap(MAP *m)

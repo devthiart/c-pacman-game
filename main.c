@@ -19,7 +19,7 @@ int wheredoestheghostgo(int xcurrent, int ycurrent, int *xdestiny, int *ydestiny
 	for (int i = 0; i < 10; i++)
 	{
 		int position = rand() % 4;
-		if (isvalid(&m, options[position][0], options[position][1]) && isempty(&m, options[position][0], options[position][1]))
+		if (canmove(&m, options[position][0], options[position][1]))
 		{
 			*xdestiny = options[position][0];
 			*ydestiny = options[position][1];
@@ -61,7 +61,9 @@ void ghosts()
 
 int endgame()
 {
-	return 0;
+	POSITION pos;
+	int heroisonmap = findonmap(&m, &pos, HERO);
+	return !heroisonmap;
 }
 
 int validinput(char userinput)
@@ -98,9 +100,7 @@ void move(char direction)
 	}
 
 	// Check if the hero can move to the desired position
-	if (!isvalid(&m, nextx, nexty))
-		return;
-	if (!isempty(&m, nextx, nexty))
+	if (!canmove(&m, nextx, nexty))
 		return;
 
 	moveonmap(&m, hero.x, hero.y, nextx, nexty);
@@ -112,7 +112,7 @@ int main()
 {
 
 	readmap(&m);
-	findinmap(&m, &hero, HERO);
+	findonmap(&m, &hero, HERO);
 
 	do
 	{
