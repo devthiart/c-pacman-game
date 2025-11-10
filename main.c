@@ -124,7 +124,7 @@ void explodepill()
 			{
 				break;
 			}
-			m.matrix[hero.x][hero.x + i] = EMPTY;
+			m.matrix[hero.x][hero.y + i] = EMPTY;
 		}
 	}
 }
