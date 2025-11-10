@@ -11,10 +11,6 @@ void copymap(MAP *destiny, MAP *origin)
 	allocmap(destiny);
 	for (int i = 0; i < origin->lines; i++)
 	{
-		// for (int j = 0; j < origin->columns; j++)
-		// {
-		// 	destiny->matrix[i][j] = origin->matrix[i][j];
-		// }
 		strcpy(destiny->matrix[i], origin->matrix[i]);
 	}
 }

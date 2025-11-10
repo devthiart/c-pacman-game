@@ -1,10 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "main.h"
 #include "map.h"
 
 MAP m;
 POSITION hero;
+
+int wheredoestheghostgo(int xcurrent, int ycurrent, int *xdestiny, int *ydestiny)
+{
+	int options[4][2] = {
+		{xcurrent, ycurrent + 1},
+		{xcurrent + 1, ycurrent},
+		{xcurrent - 1, ycurrent},
+		{xcurrent, ycurrent - 1}};
+
+	srand(time(0));
+	for (int i = 0; i < 10; i++)
+	{
+		int position = rand() % 4;
+		if (isvalid(&m, options[position][0], options[position][1]) && isempty(&m, options[position][0], options[position][1]))
+		{
+			*xdestiny = options[position][0];
+			*ydestiny = options[position][1];
+
+			return 1;
+		}
+	}
+
+	return 0;
+}
 
 void ghosts()
 {
@@ -18,9 +43,14 @@ void ghosts()
 		{
 			if (copy.matrix[i][j] == GHOST)
 			{
-				if (isvalid(&m, i, j + 1) && isempty(&m, i, j + 1))
+				int xdestiny;
+				int ydestiny;
+
+				int found = wheredoestheghostgo(i, j, &xdestiny, &ydestiny);
+
+				if (found)
 				{
-					moveonmap(&m, i, j, i, j + 1);
+					moveonmap(&m, i, j, xdestiny, ydestiny);
 				}
 			}
 		}
