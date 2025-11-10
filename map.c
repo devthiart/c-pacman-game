@@ -1,6 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "map.h"
+
+void copymap(MAP *destiny, MAP *origin)
+{
+	destiny->lines = origin->lines;
+	destiny->columns = origin->columns;
+
+	allocmap(destiny);
+	for (int i = 0; i < origin->lines; i++)
+	{
+		// for (int j = 0; j < origin->columns; j++)
+		// {
+		// 	destiny->matrix[i][j] = origin->matrix[i][j];
+		// }
+		strcpy(destiny->matrix[i], origin->matrix[i]);
+	}
+}
 
 int moveonmap(MAP *m, int xorigin, int yorigin, int xdestiny, int ydestiny)
 {

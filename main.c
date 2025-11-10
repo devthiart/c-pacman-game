@@ -6,6 +6,29 @@
 MAP m;
 POSITION hero;
 
+void ghosts()
+{
+	MAP copy;
+
+	copymap(&copy, &m);
+
+	for (int i = 0; i < copy.lines; i++)
+	{
+		for (int j = 0; j < copy.columns; j++)
+		{
+			if (copy.matrix[i][j] == GHOST)
+			{
+				if (isvalid(&m, i, j + 1) && isempty(&m, i, j + 1))
+				{
+					moveonmap(&m, i, j, i, j + 1);
+				}
+			}
+		}
+	}
+
+	freemap(&copy);
+}
+
 int endgame()
 {
 	return 0;
@@ -68,6 +91,7 @@ int main()
 		char userinput;
 		scanf(" %c", &userinput);
 		move(userinput);
+		ghosts();
 	} while (!endgame());
 
 	freemap(&m);
