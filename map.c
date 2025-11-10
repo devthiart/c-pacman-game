@@ -37,6 +37,11 @@ int isempty(MAP *m, int x, int y)
 	return m->matrix[x][y] == EMPTY;
 }
 
+int iswall(MAP *m, int x, int y)
+{
+	return m->matrix[x][y] == WALL_VERTICAL || m->matrix[x][y] == WALL_HORIZONTAL;
+}
+
 int findonmap(MAP *m, POSITION *p, char c)
 {
 	// Find player position
@@ -55,9 +60,16 @@ int findonmap(MAP *m, POSITION *p, char c)
 	return 0;
 }
 
-int canmove(MAP *m, int x, int y)
+int canmove(MAP *m, char character, int x, int y)
 {
-	return isvalid(m, x, y) && isempty(m, x, y);
+	return isvalid(m, x, y) &&
+		   !iswall(m, x, y) &&
+		   !ischaracter(m, character, x, y);
+}
+
+int ischaracter(MAP *m, char character, int x, int y)
+{
+	return m->matrix[x][y] == character;
 }
 
 void freemap(MAP *m)

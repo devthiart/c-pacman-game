@@ -19,7 +19,7 @@ int wheredoestheghostgo(int xcurrent, int ycurrent, int *xdestiny, int *ydestiny
 	for (int i = 0; i < 10; i++)
 	{
 		int position = rand() % 4;
-		if (canmove(&m, options[position][0], options[position][1]))
+		if (canmove(&m, GHOST, options[position][0], options[position][1]))
 		{
 			*xdestiny = options[position][0];
 			*ydestiny = options[position][1];
@@ -100,7 +100,7 @@ void move(char direction)
 	}
 
 	// Check if the hero can move to the desired position
-	if (!canmove(&m, nextx, nexty))
+	if (!canmove(&m, HERO, nextx, nexty))
 		return;
 
 	moveonmap(&m, hero.x, hero.y, nextx, nexty);

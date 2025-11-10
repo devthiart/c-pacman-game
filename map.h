@@ -30,4 +30,6 @@ int isvalid(MAP *m, int x, int y);
 int isempty(MAP *m, int x, int y);
 int moveonmap(MAP *m, int xorigin, int yorigin, int xdestiny, int ydestiny);
 void copymap(MAP *destiny, MAP *origin);
-int canmove(MAP *m, int x, int y);
+int canmove(MAP *m, char character, int x, int y);
+int iswall(MAP *m, int x, int y);
+int ischaracter(MAP *m, char character, int x, int y);
