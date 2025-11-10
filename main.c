@@ -114,19 +114,12 @@ void move(char direction)
 	hero.y = nexty;
 }
 
-void explodepill()
+void explodepill(int x, int y, int count)
 {
-	for (int i = 1; i <= 3; i++)
-	{
-		if (isvalid(&m, hero.x, hero.y + i))
-		{
-			if (iswall(&m, hero.x, hero.y + i))
-			{
-				break;
-			}
-			m.matrix[hero.x][hero.y + i] = EMPTY;
-		}
-	}
+	if (count == 0)
+		return;
+	m.matrix[x][y + 1] = EMPTY;
+	explodepill(x, y + 1, count - 1);
 }
 
 int main()
@@ -144,7 +137,7 @@ int main()
 		scanf(" %c", &userinput);
 		move(userinput);
 		if (userinput == BOMB)
-			explodepill();
+			explodepill(hero.x, hero.y, 3);
 		ghosts();
 	} while (!endgame());
 
