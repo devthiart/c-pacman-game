@@ -3,6 +3,7 @@
 #define EMPTY '.'
 #define WALL_VERTICAL '|'
 #define WALL_HORIZONTAL '-'
+#define PILL 'P'
 
 struct map
 {

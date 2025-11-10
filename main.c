@@ -6,6 +6,7 @@
 
 MAP m;
 POSITION hero;
+int hasapill;
 
 int wheredoestheghostgo(int xcurrent, int ycurrent, int *xdestiny, int *ydestiny)
 {
@@ -103,9 +104,29 @@ void move(char direction)
 	if (!canmove(&m, GHOST, nextx, nexty))
 		return;
 
+	if (ischaracter(&m, PILL, nextx, nexty))
+	{
+		hasapill = 1;
+	}
+
 	moveonmap(&m, hero.x, hero.y, nextx, nexty);
 	hero.x = nextx;
 	hero.y = nexty;
+}
+
+void explodepill()
+{
+	for (int i = 1; i <= 3; i++)
+	{
+		if (isvalid(&m, hero.x, hero.y + i))
+		{
+			if (iswall(&m, hero.x, hero.y + i))
+			{
+				break;
+			}
+			m.matrix[hero.x][hero.x + i] = EMPTY;
+		}
+	}
 }
 
 int main()
@@ -116,11 +137,14 @@ int main()
 
 	do
 	{
+		printf("Has a pill: %s\n", (hasapill ? "Yes" : "No"));
 		printmap(&m);
 
 		char userinput;
 		scanf(" %c", &userinput);
 		move(userinput);
+		if (userinput == BOMB)
+			explodepill();
 		ghosts();
 	} while (!endgame());
 
