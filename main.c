@@ -100,7 +100,7 @@ void move(char direction)
 	}
 
 	// Check if the hero can move to the desired position
-	if (!canmove(&m, HERO, nextx, nexty))
+	if (!canmove(&m, GHOST, nextx, nexty))
 		return;
 
 	moveonmap(&m, hero.x, hero.y, nextx, nexty);
