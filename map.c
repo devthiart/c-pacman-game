@@ -111,11 +111,3 @@ void readmap(MAP *m)
 
 	fclose(f);
 }
-
-void printmap(MAP *m)
-{
-	for (int i = 0; i < m->lines; i++)
-	{
-		printf("%s\n", m->matrix[i]);
-	}
-}
