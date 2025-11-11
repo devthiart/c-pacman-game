@@ -9,4 +9,5 @@ void move(char direction);
 int validinput(char userinput);
 void ghosts();
 int wheredoestheghostgo(int xcurrent, int ycurrent, int *xdestiny, int *ydestiny);
-void explodepill(int x, int y, int count);
+void explodepill();
+void explodepill2(int x, int y, int sumx, int sumy, int count);

@@ -114,17 +114,29 @@ void move(char direction)
 	hero.y = nexty;
 }
 
-void explodepill(int x, int y, int count)
+void explodepill()
+{
+	explodepill2(hero.x, hero.y, 0, 1, 3);
+	explodepill2(hero.x, hero.y, 0, -1, 3);
+	explodepill2(hero.x, hero.y, 1, 0, 3);
+	explodepill2(hero.x, hero.y, -1, 0, 3);
+}
+
+void explodepill2(int x, int y, int sumx, int sumy, int count)
 {
 	if (count == 0)
 		return;
-	if (!isvalid(&m, x, y + 1))
+
+	int newx = x + sumx;
+	int newy = y + sumy;
+
+	if (!isvalid(&m, newx, newy))
 		return;
-	if (iswall(&m, x, y + 1))
+	if (iswall(&m, newx, newy))
 		return;
 
-	m.matrix[x][y + 1] = EMPTY;
-	explodepill(x, y + 1, count - 1);
+	m.matrix[newx][newy] = EMPTY;
+	explodepill2(newx, newy, sumx, sumy, count - 1);
 }
 
 int main()
@@ -142,7 +154,7 @@ int main()
 		scanf(" %c", &userinput);
 		move(userinput);
 		if (userinput == BOMB)
-			explodepill(hero.x, hero.y, 3);
+			explodepill();
 		ghosts();
 	} while (!endgame());
 
