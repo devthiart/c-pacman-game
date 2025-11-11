@@ -116,10 +116,15 @@ void move(char direction)
 
 void explodepill()
 {
+	if (!hasapill)
+		return;
+
 	explodepill2(hero.x, hero.y, 0, 1, 3);
 	explodepill2(hero.x, hero.y, 0, -1, 3);
 	explodepill2(hero.x, hero.y, 1, 0, 3);
 	explodepill2(hero.x, hero.y, -1, 0, 3);
+
+	hasapill = 0;
 }
 
 void explodepill2(int x, int y, int sumx, int sumy, int count)
