@@ -1,3 +1,6 @@
+#ifndef _MAP_H_
+#define _MAP_H_
+
 #define HERO '@'
 #define GHOST 'G'
 #define EMPTY '.'
@@ -34,3 +37,5 @@ void copymap(MAP *destiny, MAP *origin);
 int canmove(MAP *m, char character, int x, int y);
 int iswall(MAP *m, int x, int y);
 int ischaracter(MAP *m, char character, int x, int y);
+
+#endif
