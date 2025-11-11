@@ -118,6 +118,11 @@ void explodepill(int x, int y, int count)
 {
 	if (count == 0)
 		return;
+	if (!isvalid(&m, x, y + 1))
+		return;
+	if (iswall(&m, x, y + 1))
+		return;
+
 	m.matrix[x][y + 1] = EMPTY;
 	explodepill(x, y + 1, count - 1);
 }

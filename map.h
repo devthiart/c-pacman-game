@@ -7,17 +7,17 @@
 
 struct map
 {
-  char **matrix;
-  int lines;
-  int columns;
+	char **matrix;
+	int lines;
+	int columns;
 };
 
 typedef struct map MAP;
 
 struct position
 {
-  int x;
-  int y;
+	int x;
+	int y;
 };
 
 typedef struct position POSITION;
