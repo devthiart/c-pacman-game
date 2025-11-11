@@ -104,7 +104,7 @@ void readmap(MAP *m)
 
 	allocmap(m);
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < m->lines; i++)
 	{
 		fscanf(f, "%s", m->matrix[i]);
 	}
@@ -114,7 +114,7 @@ void readmap(MAP *m)
 
 void printmap(MAP *m)
 {
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < m->lines; i++)
 	{
 		printf("%s\n", m->matrix[i]);
 	}
